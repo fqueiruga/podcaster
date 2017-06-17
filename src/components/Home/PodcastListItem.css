@@ -1,0 +1,30 @@
+.PodcastListItem {
+  width: 15rem;
+  margin: 2rem auto;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.PodcastListItem__Image {
+  position: relative;
+  border-radius: 50%;
+  width: 170px; /* hardcoded size because this is the size of the thumbnail */
+  z-index: 2;
+}
+
+.PodcastListItem__Card {
+  position: relative;
+  top: -85px;
+  z-index: 1;
+}
+
+.PodcastListItem__Content {
+  margin-top: 85px;
+}
+
+.PodcastListItem__Content h4 {
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}

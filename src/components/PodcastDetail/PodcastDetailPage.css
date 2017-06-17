@@ -1,0 +1,11 @@
+.PodcastDetailPage {
+  display: flex;
+  padding: 1rem
+}
+
+.PodcastDetailPage__Sidebar {
+}
+
+.PodcastDetailPage__Content {
+  margin: 0 auto;  
+}
