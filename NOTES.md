@@ -1,6 +1,20 @@
-### Initial commit
+## Initial commit
 
 The initial commit contains a bare project created with [Create React App](https://github.com/facebookincubator/create-react-appr), the official React CLI. It provides a development environment and tools to generate production builds. 
 
 I did some cleanup and moved some files around, such as moving the App to a components folder.
 
+## Building the application frame
+
+The first step was to create the screens for the application, using mock data. I could start adding logic once the mockup with basic navigation is done.
+
+#### Dependencies:
+
+- React Router v4
+- Bootstrap v4
+- rss-parser to parse rss feeds. It is actively maintained and is easy to use.
+
+#### App structure
+
+- The components are grouped by page. Any reusable component will go into a *src/components/common* folder.
+- The main routes are declared in the App component. Nested routes are declared at page level.

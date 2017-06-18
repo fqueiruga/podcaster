@@ -1,0 +1,24 @@
+.EpisodeDetail {
+  width: 45rem;
+}
+
+.EpisodeDetail__Container {
+  width: 100%;
+  padding: 1rem;
+}
+
+.EpisodeDetail__Title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.EpisodeDetail__Description {
+  font-size: .75rem;
+  font-style: italic;
+  padding: .5rem 0;
+  border-bottom: 1px solid lightgray;
+}
+
+.EpisodeDetail__Player {
+  width: 100%;
+}
