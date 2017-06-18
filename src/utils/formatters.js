@@ -18,13 +18,33 @@ export function formatDate(date) {
  * Formats the representation of an audio/video duration, by removing the hours part if the
  * duration is under 1 hour
  *  
- * @param {string} duration in the format 'hh:mm:ss'
+ * @param {string} duration in the format 'hh:mm:ss' or as seconds
  */
 export function formatDuration(duration) {
-  const timePieces = duration.split(":");
+  if (duration === undefined || duration === "") {
+    return "unknown";
+  }
+
+  const timePieces = isNaN(duration)
+    ? durationAsString(duration)
+    : durationAsSeconds(parseInt(duration, 10));
+  return timePieces
+    .map(timePiece => parseInt(timePiece, 10))
+    .map(timePiece => timePiece < 10 ? `0${timePiece}` : timePiece)
+    .join(":");
+}
+
+function durationAsString(durationStr) {
+  const timePieces = durationStr.split(":");
   let hours = timePieces[0];
   if (parseInt(hours, 10) === 0) hours = undefined;
   timePieces[0] = hours;
+  return timePieces.filter(timePiece => timePiece !== undefined);
+}
 
-  return timePieces.filter(timePiece => timePiece !== undefined).join(':');
+function durationAsSeconds(totalSeconds) {
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor(totalSeconds % 3600 / 60);
+  const seconds = Math.floor(totalSeconds % 3600 % 60);
+  return [hours, minutes, seconds];
 }

@@ -2,28 +2,29 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-import { formatDate, formatDuration } from "../../utils/formatters";
+import { formatDate } from "../../utils/formatters";
 import "./EpisodesList.css";
 
+const EpisodeRow = ({ podcastId, id, title, date, duration }) => {
+  return (
+    <tr>
+      <td>
+        <Link to={`/podcast/${podcastId}/episode/${id}`}>{title}</Link>
+      </td>
+      <td>{formatDate(date)}</td>
+      <td>{duration}</td>
+    </tr>
+  );
+};
+
 class EpisodesList extends Component {
-  renderEpisodeRow(episode) {
-    const { podcastId } = this.props;
-
-    return (
-      <tr key={episode.id}>
-        <td>
-          <Link to={`/podcast/${podcastId}/episode/${encodeURI(episode.id)}`}>
-            {episode.title}
-          </Link>
-        </td>
-        <td>{formatDate(episode.date)}</td>
-        <td className="text-right">{formatDuration(episode.duration)}</td>
-      </tr>
-    );
-  }
-
   render() {
     const { episodes } = this.props;
+
+    // Show nothing if there are no episodes
+    if (!episodes || !(episodes.length > 0)) {
+      return null;
+    }
 
     return (
       <div className="EpisodesList">
@@ -42,7 +43,16 @@ class EpisodesList extends Component {
             </thead>
 
             <tbody>
-              {episodes.map(episode => this.renderEpisodeRow(episode))}
+              {episodes.map(episode => (
+                <EpisodeRow
+                  key={episode.id}
+                  podcastId={this.props.podcastId}
+                  id={episode.id}
+                  title={episode.title}
+                  date={episode.date}
+                  duration={episode.duration}
+                />
+              ))}
             </tbody>
           </table>
         </div>
