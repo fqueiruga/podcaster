@@ -4,6 +4,15 @@ import PropTypes from "prop-types";
 import "./PodcastSearch.css";
 
 class PodcastSearch extends Component {
+  constructor(props) {
+    super(props);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+  }
+
+  handleSearchChange(e) {
+    this.props.onSearchChange(e.target.value);
+  }
+
   render() {
     return (
       <div className="PodcastSearch">
@@ -15,6 +24,8 @@ class PodcastSearch extends Component {
           type="text"
           className="PodcastSearch__SearchBar"
           placeholder="Filter Podcasts"
+          value={this.props.filter}
+          onChange={this.handleSearchChange}
         />
       </div>
     );
@@ -22,7 +33,9 @@ class PodcastSearch extends Component {
 }
 
 PodcastSearch.propTypes = {
-  count: PropTypes.number.isRequired
+  count: PropTypes.number.isRequired,
+  filter: PropTypes.string,
+  onSearchChange: PropTypes.func.isRequired,
 };
 
 export default PodcastSearch;

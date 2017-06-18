@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
+import keyBy from "lodash.keyby";
 
 import Header from "./Header";
 import Home from "./Home";
@@ -12,15 +13,20 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      podcasts: {}
+      podcasts: {},
+      podcastIds: []
     };
   }
 
   componentDidMount() {
     // Load the podcast list when the component mounts for the first time
-    fetchTop100Podcasts().then(data =>
-      this.setState({ podcasts: normalizePodcastList(data) })
-    );
+    fetchTop100Podcasts().then(data => {
+      const normalizedPodcasts = normalizePodcastList(data);
+      this.setState({
+        podcastIds: normalizedPodcasts.map(podcast => podcast.id),
+        podcasts: keyBy(normalizedPodcasts, "id")
+      });
+    });
   }
 
   render() {
@@ -33,7 +39,12 @@ class App extends Component {
             <Route
               exact
               path="/"
-              render={() => <Home podcasts={this.state.podcasts} />}
+              render={() => (
+                <Home
+                  podcasts={this.state.podcasts}
+                  podcastIds={this.state.podcastIds}
+                />
+              )}
             />
             <Route
               path="/podcast/:id"

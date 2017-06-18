@@ -1,5 +1,3 @@
-import keyBy from "lodash.keyby";
-
 import { formatDuration } from "./formatters";
 
 /**
@@ -34,7 +32,7 @@ export function normalizeEpisodes(parsedFeed) {
  * @return {Map.<string, Object>}
  */
 export function normalizePodcastList(podcastData) {
-  const normalizedPodcasts = podcastData.feed.entry.map(podcast => {
+  return podcastData.feed.entry.map(podcast => {
     const normalized = {
       id: podcast.id.attributes["im:id"],
       title: podcast["im:name"].label,
@@ -46,6 +44,4 @@ export function normalizePodcastList(podcastData) {
     }
     return normalized;
   });
-
-  return keyBy(normalizedPodcasts, "id");
 }

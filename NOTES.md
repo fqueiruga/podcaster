@@ -24,3 +24,7 @@ The first step was to create the screens for the application, using mock data. I
 - The podcast list is initialized in the App component, and passed down to all views via props.
 - The podcasts are stored normalized, in an Object that has the podcast IDs as keys.
 - Improved and tested the *formatDuration* function, to cover more edge cases.
+
+## Filtering the podcast list
+
+- The search box is a controlled property.
