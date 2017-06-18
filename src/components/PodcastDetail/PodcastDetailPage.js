@@ -1,55 +1,13 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { Switch, Route } from "react-router-dom";
-import RssParser from "rss-parser";
 
 import PodcastInfo from "./PodcastInfo";
 import EpisodesList from "./EpisodesList";
 import EpisodeDetail from "./EpisodeDetail";
-import feedUrl from "../../devData/podcastFeed.rss";
+import { fetchPodcastFeed } from "../../api";
+import { normalizePodcastFeed } from "../../utils/normalizers";
 import "./PodcastDetailPage.css";
-
-/**
- * Reads a RSS feed from a URL. Wraps the call to the RSSParser library in a Promise
- * 
- * @param {string} url The RSS feed URL
- * @returns {Promise} Resolved with the parsed RSS feed
- */
-function parseRssFeed(url) {
-  return new Promise((resolve, reject) => {
-    RssParser.parseURL(url, (err, parsed) => {
-      if (err) reject(err);
-      resolve(parsed);
-    });
-  });
-}
-
-/**
- * Normalizes a parsed podcast rss feed, transforming it to the format expected by the app
- * 
- * The episode IDs are encoded to be able to put them in the URL
- * 
- * @param {object} parsedFeed The parsed RSS feed
- */
-function normalizePodcastFeed(parsedFeed) {
-  const { title, description, itunes, entries } = parsedFeed.feed;
-  const episodes = entries.map(entry => ({
-    id: encodeURIComponent(entry.guid),
-    title: entry.title,
-    description: entry.content,
-    date: new Date(Date.parse(entry.pubDate)), // transforms the date to a JS object
-    duration: entry.itunes.duration,
-    url: entry.enclosure.url,
-    type: entry.enclosure.type
-  }));
-
-  return {
-    title,
-    description,
-    imageUrl: itunes.image,
-    author: itunes.author,
-    episodes
-  };
-}
 
 /**
  * Container for the podcast details views
@@ -63,7 +21,7 @@ class PodcastDetailPage extends Component {
   }
 
   componentDidMount() {
-    parseRssFeed(feedUrl)
+    fetchPodcastFeed(this.props.podcastId)
       .then(parsedFeed =>
         this.setState({ podcast: normalizePodcastFeed(parsedFeed) })
       )
@@ -113,5 +71,10 @@ class PodcastDetailPage extends Component {
     );
   }
 }
+
+PodcastDetailPage.propTypes = {
+  podcastId: PropTypes.string.isRequired,
+  podcasts: PropTypes.object.isRequired
+};
 
 export default PodcastDetailPage;

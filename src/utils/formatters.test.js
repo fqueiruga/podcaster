@@ -12,25 +12,33 @@ describe("#formatDate", () => {
   });
 });
 
-describe('#formatDuration', () => {
-  it('trims the hour if the duration is under 1 hour', () => {
-    const duration = '00:12:15';
-    expect(formatDuration(duration)).toEqual('12:15')
-  })
-  
-  it('shows the hour if the duration is over 1 hour', () => {
-    const duration = '10:12:15';
-    expect(formatDuration(duration)).toEqual('10:12:15')
+describe("#formatDuration", () => {
+  it("trims the hour if the duration is under 1 hour", () => {
+    const duration = "00:12:15";
+    expect(formatDuration(duration)).toEqual("12:15");
   });
 
-  it('does not remove leading zero for hours', () => {
-    const duration = '01:12:15';
-    expect(formatDuration(duration)).toEqual('01:12:15');
-  })
-
-  
-  it('does not remove leading zero for minutes', () => {
-    const duration = '10:01:15';
-    expect(formatDuration(duration)).toEqual('10:01:15');
+  it("shows the hour if the duration is over 1 hour", () => {
+    const duration = "10:12:15";
+    expect(formatDuration(duration)).toEqual("10:12:15");
   });
-})
+
+  it("does not remove leading zero for hours", () => {
+    const duration = "01:12:15";
+    expect(formatDuration(duration)).toEqual("01:12:15");
+  });
+
+  it("does not remove leading zero for minutes", () => {
+    const duration = "10:01:15";
+    expect(formatDuration(duration)).toEqual("10:01:15");
+  });
+
+  it("handles the duration in seconds", () => {
+    const duration = "3661";
+    expect(formatDuration(duration)).toEqual("01:01:01");
+  });
+
+  it("handles unknown duration", () => {
+    expect(formatDuration(undefined)).toEqual("unknown");
+  });
+});

@@ -5,6 +5,14 @@
   justify-content: center;
 }
 
+.PodcastInfo a,
+.PodcastInfo a:hover,
+.PodcastInfo a:focus,
+.PodcastInfo a:active {
+  color: rgb(41, 43, 44);
+  text-decoration: none; 
+}
+
 .PodcastInfo__ImageContainer {
   text-align: center;
   border-bottom: 1px solid lightgray;
@@ -19,13 +27,11 @@
 .PodcastInfo__Header {
   padding: 1rem 0;
   border-bottom: 1px solid lightgray;
-  color: rgb(41, 43, 44);
 }
 
 .PodcastInfo__Title {
   font-size: 1rem;
 }
-
 
 .PodcastInfo__Author {
   font-size: .75rem;

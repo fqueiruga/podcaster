@@ -18,3 +18,9 @@ The first step was to create the screens for the application, using mock data. I
 
 - The components are grouped by page. Any reusable component will go into a *src/components/common* folder.
 - The main routes are declared in the App component. Nested routes are declared at page level.
+
+## Retrieving information from the API
+
+- The podcast list is initialized in the App component, and passed down to all views via props.
+- The podcasts are stored normalized, in an Object that has the podcast IDs as keys.
+- Improved and tested the *formatDuration* function, to cover more edge cases.

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import PodcastListItem from './PodcastListItem';
+import PodcastListItem from "./PodcastListItem";
 import "./PodcastList.css";
 
 /**
@@ -9,16 +9,18 @@ import "./PodcastList.css";
  */
 class PodcastList extends Component {
   render() {
+    const { podcastIds, podcasts } = this.props;
+    const podcastsList = podcastIds.map(id => podcasts[id]);
+
     return (
       <ul className="PodcastList">
-        {this.props.podcasts.map(podcast => (
+        {podcastsList.map(podcast => (
           <PodcastListItem
             key={podcast.id}
             id={podcast.id}
             title={podcast.title}
             author={podcast.author}
             imageThumb={podcast.imageThumb}
-            onClick={this.props.onPodcastClick}
           />
         ))}
       </ul>
@@ -27,8 +29,8 @@ class PodcastList extends Component {
 }
 
 PodcastList.propTypes = {
-  podcasts: PropTypes.array.isRequired,
-  onPodcastClick: PropTypes.func.isRequired,
+  podcastIds: PropTypes.array.isRequired,
+  podcasts: PropTypes.object.isRequired,
 };
 
 export default PodcastList;
