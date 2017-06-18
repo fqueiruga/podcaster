@@ -21,6 +21,11 @@ class EpisodesList extends Component {
   render() {
     const { episodes } = this.props;
 
+    // Show nothing if there are no episodes
+    if (!episodes || !(episodes.length > 0)) {
+      return null;
+    }
+
     return (
       <div className="EpisodesList">
         <div className="card EpisodesList__Count">

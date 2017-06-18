@@ -6,7 +6,7 @@ import PodcastInfo from "./PodcastInfo";
 import EpisodesList from "./EpisodesList";
 import EpisodeDetail from "./EpisodeDetail";
 import { fetchPodcastFeed } from "../../api";
-import { normalizePodcastFeed } from "../../utils/normalizers";
+import { normalizeEpisodes } from "../../utils/normalizers";
 import "./PodcastDetailPage.css";
 
 /**
@@ -16,14 +16,14 @@ class PodcastDetailPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      podcast: null
+      episodes: []
     };
   }
 
   componentDidMount() {
     fetchPodcastFeed(this.props.podcastId)
       .then(parsedFeed =>
-        this.setState({ podcast: normalizePodcastFeed(parsedFeed) })
+        this.setState({ episodes: normalizeEpisodes(parsedFeed) })
       )
       .catch(err =>
         console.error("Failed to read or parse the podcast feed", err)
@@ -31,8 +31,8 @@ class PodcastDetailPage extends Component {
   }
 
   render() {
-    const { podcast } = this.state;
-
+    const podcast = this.props.podcasts[this.props.podcastId];
+    
     if (!podcast) {
       return null;
     }
@@ -51,7 +51,7 @@ class PodcastDetailPage extends Component {
               render={({ match }) => (
                 <EpisodesList
                   podcastId={match.params.id}
-                  episodes={podcast.episodes}
+                  episodes={this.state.episodes}
                 />
               )}
             />
@@ -61,7 +61,7 @@ class PodcastDetailPage extends Component {
               render={({ match }) => (
                 <EpisodeDetail
                   episodeId={decodeURI(match.params.episodeId)}
-                  episodes={podcast.episodes}
+                  episodes={this.state.episodes}
                 />
               )}
             />
