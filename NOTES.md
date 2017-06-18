@@ -27,3 +27,7 @@ The first step was to create the screens for the application, using mock data. I
 - Caches up to 50 podcast request using a service worker.
   - The service worker is the *public/api-cache-service-worker.js* file.
   - Uses the cache expiration mechanisms from [sw-toolbox](https://github.com/GoogleChrome/sw-toolbox).
+
+## Filtering the podcast list
+
+- The search box is a controlled property.
