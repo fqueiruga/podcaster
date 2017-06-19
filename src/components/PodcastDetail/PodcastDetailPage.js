@@ -1,38 +1,27 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
+import * as actionCreators from "../../actions";
 import PodcastInfo from "./PodcastInfo";
 import EpisodesList from "./EpisodesList";
 import EpisodeDetail from "./EpisodeDetail";
-import { fetchPodcastFeed } from "../../api";
-import { normalizeEpisodes } from "../../utils/normalizers";
 import "./PodcastDetailPage.css";
 
 /**
  * Container for the podcast details views
  */
 class PodcastDetailPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      episodes: []
-    };
-  }
-
   componentDidMount() {
-    fetchPodcastFeed(this.props.podcastId)
-      .then(parsedFeed =>
-        this.setState({ episodes: normalizeEpisodes(parsedFeed) })
-      )
-      .catch(err =>
-        console.error("Failed to read or parse the podcast feed", err)
-      );
+    this.props.fetchEpisodes(this.props.podcastId);
   }
 
   render() {
-    const podcast = this.props.podcasts[this.props.podcastId];
-    
+    const { podcasts, podcastId, episodes, episodeIds } = this.props;
+    const podcast = podcasts[podcastId];
+
     if (!podcast) {
       return null;
     }
@@ -51,7 +40,8 @@ class PodcastDetailPage extends Component {
               render={({ match }) => (
                 <EpisodesList
                   podcastId={match.params.id}
-                  episodes={this.state.episodes}
+                  episodes={episodes}
+                  episodeIds={episodeIds}
                 />
               )}
             />
@@ -61,7 +51,7 @@ class PodcastDetailPage extends Component {
               render={({ match }) => (
                 <EpisodeDetail
                   episodeId={decodeURI(match.params.episodeId)}
-                  episodes={this.state.episodes}
+                  episodes={episodes}
                 />
               )}
             />
@@ -74,7 +64,18 @@ class PodcastDetailPage extends Component {
 
 PodcastDetailPage.propTypes = {
   podcastId: PropTypes.string.isRequired,
-  podcasts: PropTypes.object.isRequired
+  podcasts: PropTypes.object.isRequired,
+  episodes: PropTypes.object,
+  episodeIds: PropTypes.arrayOf(Object)
 };
 
-export default PodcastDetailPage;
+const mapStateToProps = state => ({
+  episodes: state.episodes.episodes,
+  episodeIds: state.episodes.episodeIds
+});
+const mapDispatchToPorps = dispatch =>
+  bindActionCreators(actionCreators, dispatch);
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToPorps)(PodcastDetailPage)
+);

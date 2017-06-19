@@ -7,7 +7,11 @@
     "lodash.keyby": "^4.6.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-md-spinner": "^0.2.4",
+    "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
+    "redux": "^3.7.0",
+    "redux-thunk": "^2.2.0",
     "rss-parser": "^2.9.0"
   },
   "devDependencies": {

@@ -19,12 +19,13 @@ const EpisodeRow = ({ podcastId, id, title, date, duration }) => {
 
 class EpisodesList extends Component {
   render() {
-    const { episodes } = this.props;
-
+    const { episodeIds } = this.props;
     // Show nothing if there are no episodes
-    if (!episodes || !(episodes.length > 0)) {
+    if (!episodeIds || !(episodeIds.length > 0)) {
       return null;
     }
+
+    const episodes = episodeIds.map(id => this.props.episodes[id]);
 
     return (
       <div className="EpisodesList">
@@ -63,7 +64,8 @@ class EpisodesList extends Component {
 
 EpisodesList.propTypes = {
   podcastId: PropTypes.string.isRequired,
-  episodes: PropTypes.arrayOf(Object).isRequired
+  episodes: PropTypes.object,
+  episodeIds: PropTypes.arrayOf(Number)
 };
 
 export default EpisodesList;
