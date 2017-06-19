@@ -1,38 +1,27 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
-import keyBy from "lodash.keyby";
+import PropTypes from "prop-types";
+import { Switch, Route, withRouter } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
+import * as actionCreators from "../actions";
 import Header from "./Header";
 import Home from "./Home";
 import PodcastDetail from "./PodcastDetail";
-import { fetchTop100Podcasts } from "../api";
-import { normalizePodcastList } from "../utils/normalizers";
 import "./App.css";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      podcasts: {},
-      podcastIds: []
-    };
-  }
-
   componentDidMount() {
     // Load the podcast list when the component mounts for the first time
-    fetchTop100Podcasts().then(data => {
-      const normalizedPodcasts = normalizePodcastList(data);
-      this.setState({
-        podcastIds: normalizedPodcasts.map(podcast => podcast.id),
-        podcasts: keyBy(normalizedPodcasts, "id")
-      });
-    });
+    this.props.fetchPodcasts();
   }
 
   render() {
+    const { isFetching, podcasts, podcastIds } = this.props;
+
     return (
       <div className="container App">
-        <Header />
+        <Header isFetching={isFetching} />
 
         <main>
           <Switch>
@@ -40,17 +29,14 @@ class App extends Component {
               exact
               path="/"
               render={() => (
-                <Home
-                  podcasts={this.state.podcasts}
-                  podcastIds={this.state.podcastIds}
-                />
+                <Home podcasts={podcasts} podcastIds={podcastIds} />
               )}
             />
             <Route
               path="/podcast/:id"
               render={({ match }) => (
                 <PodcastDetail
-                  podcasts={this.state.podcasts}
+                  podcasts={podcasts}
                   podcastId={match.params.id}
                 />
               )}
@@ -62,4 +48,21 @@ class App extends Component {
   }
 }
 
-export default App;
+App.propTypes = {
+  isFetching: PropTypes.bool.isRequired,
+  podcasts: PropTypes.object.isRequired,
+  podcastIds: PropTypes.arrayOf(Object).isRequired,
+  fetchPodcasts: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  isFetching: state.ui.isFetching,
+  podcasts: state.podcasts.podcasts,
+  podcastIds: state.podcasts.podcastIds
+});
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(actionCreators, dispatch);
+
+// Needs to wrap the connected component with withRouter or the component will
+// not be updated when the redux store changes
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

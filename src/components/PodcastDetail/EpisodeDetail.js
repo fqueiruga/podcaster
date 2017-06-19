@@ -4,8 +4,7 @@ import "./EpisodeDetail.css";
 
 class EpisodeDetail extends Component {
   render() {
-    const { episodeId, episodes } = this.props;
-    const episode = episodes.find(episode => episode.id === episodeId);
+    const episode = this.props.episodes[this.props.episodeId];
 
     // Show nothing if there is no such episode
     if (!episode) {

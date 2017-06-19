@@ -5,6 +5,10 @@
   border-bottom: 1px solid lightgray;
 }
 
+.Header__TitleContainer {
+  width: 100%;
+}
+
 .Header__Title {
   font-size: 1.5rem;
   font-weight: bold;
