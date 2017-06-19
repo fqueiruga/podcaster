@@ -37,9 +37,14 @@ The first step was to create the screens for the application, using mock data. I
 Some UI mistakes of the first step are fixed. 
   - The appearance is more similar to the design.
   - Stops using REMs for dimensions. This was a mistake and now pixel dimensions are used. REMs are still used for font sizes.
+
 ## Adding a loading indicator
 
 - Redux is used because it makes easier and cleaner to make all application components aware of the loading status. Without it, the App component would have to pass down network callbacks as props to be awere of network requests.
 - Uses redux-thunk to make the api calls inside the action creators.
 - The v4 of React Router does not work properly with redux. The connected components have to be wrapped in the *withRouter* function. See [the issue](https://github.com/ReactTraining/react-router/issues/4671).
 - There is a reducer on the redux store in charge of the UI state. This reducer will listen to actions that inform of api calls, and tell whether the application is fetching data or not. The indicator in the page header will take its information from this reducer.
+
+## Future improvements
+
+- The HTML shown in the episode description should be sanitized.
