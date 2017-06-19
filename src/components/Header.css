@@ -1,7 +1,7 @@
 .Header {
   display: flex;
   width: 100%;
-  padding-top: 2rem;
+  padding-top: 30px;
   border-bottom: 1px solid lightgray;
 }
 

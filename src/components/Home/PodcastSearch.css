@@ -1,18 +1,19 @@
 .PodcastSearch {
-  padding: 1rem;
+  padding: 15px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
 }
 
 .PodcastSearch__Count {
-  border-radius: .5rem;
+  border-radius: 8px;
   padding: auto .25rem;
   font-size: 1rem;
+  line-height: 1.4rem;
 }
 
 .PodcastSearch__SearchBar {
   padding-left: .5rem;
   padding-right: .5rem;
-  margin-left: .5rem;
+  margin-left: 8px;
 }
