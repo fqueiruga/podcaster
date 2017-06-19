@@ -1,7 +1,8 @@
 .PodcastInfo {
   padding: 1rem;
-  width: 15rem;
+  width: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 
@@ -9,6 +10,7 @@
 .PodcastInfo a:hover,
 .PodcastInfo a:focus,
 .PodcastInfo a:active {
+  width: 100%;
   color: rgb(41, 43, 44);
   text-decoration: none; 
 }
@@ -16,16 +18,18 @@
 .PodcastInfo__ImageContainer {
   text-align: center;
   border-bottom: 1px solid lightgray;
+  width: 100%;
 }
 
 .PodcastInfo__Image {
-  width: 10rem;
-  height: 10rem;
+  width: 100%;
+  height: auto;
+  max-width: 10rem;
   border-radius: .5em;
 }
 
 .PodcastInfo__Header {
-  padding: 1rem 0;
+  padding: 15px 0;
   border-bottom: 1px solid lightgray;
 }
 
@@ -40,7 +44,8 @@
 }
 
 .PodcastInfo__Description {
-  padding-top: 1rem;
+  width: 100%;
+  padding-top: 15px;
   font-size: .75rem;
 }
 

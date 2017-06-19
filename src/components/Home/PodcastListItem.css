@@ -1,6 +1,6 @@
 .PodcastListItem {
-  width: 15rem;
-  margin: 2rem auto;
+  width: calc(25% - 20px);
+  margin: 30px 10px;
   text-align: center;
   position: relative;
   cursor: pointer;
@@ -17,18 +17,21 @@
 .PodcastListItem__Image {
   position: relative;
   border-radius: 50%;
-  width: 170px; /* hardcoded size because this is the size of the thumbnail */
+  width: 120px; /* hardcoded size because this is the size of the thumbnail */
+  height: 120px;
+  display: block;
+  margin: 0 auto;
   z-index: 2;
 }
 
 .PodcastListItem__Card {
   position: relative;
-  top: -85px;
+  top: -60px;
   z-index: 1;
 }
 
 .PodcastListItem__Content {
-  margin-top: 85px;
+  margin-top: 60px;
 }
 
 .PodcastListItem__Content h4 {

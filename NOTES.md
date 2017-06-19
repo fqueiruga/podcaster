@@ -31,3 +31,9 @@ The first step was to create the screens for the application, using mock data. I
 ## Filtering the podcast list
 
 - The search box is a controlled property.
+
+## UI fixes
+
+Some UI mistakes of the first step are fixed. 
+  - The appearance is more similar to the design.
+  - Stops using REMs for dimensions. This was a mistake and now pixel dimensions are used. REMs are still used for font sizes.

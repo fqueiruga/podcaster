@@ -1,10 +1,10 @@
 .EpisodeDetail {
-  width: 45rem;
+  width: 100%;
 }
 
 .EpisodeDetail__Container {
   width: 100%;
-  padding: 1rem;
+  padding: 15px;
 }
 
 .EpisodeDetail__Title {
@@ -15,7 +15,7 @@
 .EpisodeDetail__Description {
   font-size: .75rem;
   font-style: italic;
-  padding: .5rem 0;
+  padding: 8px 0;
   border-bottom: 1px solid lightgray;
 }
 

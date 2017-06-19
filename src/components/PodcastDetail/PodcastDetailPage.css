@@ -1,11 +1,13 @@
 .PodcastDetailPage {
   display: flex;
-  padding: 1rem
+  padding: 15px;
+  justify-content: space-between;
 }
 
 .PodcastDetailPage__Sidebar {
+  width: 25%;
 }
 
 .PodcastDetailPage__Content {
-  margin: 0 auto;  
+  width: 70%;
 }

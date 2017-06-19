@@ -1,11 +1,11 @@
 .EpisodesList {
-  width: 45rem;
+  width: 100%;
 }
 
 .EpisodesList__Count {
   width: 100%;
-  padding: 1rem;
-  margin-bottom: 1rem;
+  padding: 15px;
+  margin-bottom: 15px;
 }
 
 .EpisodesList__Count h3 {
@@ -15,10 +15,14 @@
 
 .EpisodesList__TableContainer {
   width: 100%;
-  padding: 1rem;
+  padding: 15px;
 }
 
 .EpisodesList__Table {
   width: 100%;
   font-size: .75rem;
+}
+
+.EpisodesList__Table tr td:first-child {
+  width: 100%
 }
