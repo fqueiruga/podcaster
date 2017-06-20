@@ -40,10 +40,13 @@ Some UI mistakes of the first step are fixed.
 
 ## Adding a loading indicator
 
-- Redux is used because it makes easier and cleaner to make all application components aware of the loading status. Without it, the App component would have to pass down network callbacks as props to be awere of network requests.
+- Redux is used because it makes easier and cleaner to make all application components aware of the loading status. Without it, the App component would have to pass down network callbacks as props to be aware of network requests.
 - Uses redux-thunk to make the api calls inside the action creators.
 - The v4 of React Router does not work properly with redux. The connected components have to be wrapped in the *withRouter* function. See [the issue](https://github.com/ReactTraining/react-router/issues/4671).
-- There is a reducer on the redux store in charge of the UI state. This reducer will listen to actions that inform of api calls, and tell whether the application is fetching data or not. The indicator in the page header will take its information from this reducer.
+- The state of fetching is stored in both reducers, podcasts and episodes. Those reducers know if the application is loading data for them.
+  - A fetch status is kept for each reducer, because having a common loading status would cause bugs. For example, when navigating straight to a podcast detail page, by pasting the url, the loading spinner would not be shown while fetching the episodes.
+  - The state is kept in the resource reducers instead of on a single ui reducer because this way is simpler, and the extra complexity is not warranted.
+
 
 ## Future improvements
 
