@@ -55,8 +55,9 @@ App.propTypes = {
   fetchPodcasts: PropTypes.func.isRequired
 };
 
+// The app will consider to be fetching if any resource is being loaded
 const mapStateToProps = state => ({
-  isFetching: state.ui.isFetching,
+  isFetching: state.podcasts.isFetching || state.episodes.isFetching,
   podcasts: state.podcasts.podcasts,
   podcastIds: state.podcasts.podcastIds
 });
